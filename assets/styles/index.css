@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css?family=Kanit&display=swap");
+.reg__btn {
+  border: 1px solid rgb(206, 206, 206) !important;
+}
+
+.fa-bars:before {
+  color: black !important;
+}
+
+#gerb img {
+  width: 100px !important;
+} /*# sourceMappingURL=index.css.map */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 8px;
+  border-radius: 8px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: #d3d3d3;
+  border-radius: 8px;
+}
+
+
+::-webkit-scrollbar-corner {
+  background: #000000;
+}

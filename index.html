@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Countries</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./assets/flags-of-the-world-1170x693.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/styles/index.css" />
+  </head>
+  <body onload="init()">
+    <!-- navbar -->
+    <header>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"
+            >Countries <i class="fa fa-flag" aria-hidden="true"></i
+          ></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="offcanvas offcanvas-start"
+            tabindex="-1"
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                <a class="navbar-brand" href="#"
+                  >Countries <i class="fa fa-flag" aria-hidden="true"></i
+                ></a>
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div
+                class="navbar-nav justify-content-start align-items-center flex-grow-1 pe-3 gap-2">
+                <div class="d-flex gap-4 flex-wrap">
+                  <button
+                    class="btn btn-outline-dark"
+                    onclick="setCountries('all')">
+                    All
+                  </button>
+                  <button
+                    class="btn btn-outline-dark"
+                    onclick="setCountries('asia')">
+                    Asia
+                  </button>
+                  <button
+                    class="btn btn-outline-dark"
+                    onclick="setCountries('europe')">
+                    Europe
+                  </button>
+                  <button
+                    class="btn btn-outline-dark"
+                    onclick="setCountries('america')">
+                    America
+                  </button>
+                  <button
+                    class="btn btn-outline-dark"
+                    onclick="setCountries('africa')">
+                    Africa
+                  </button>
+                  <button
+                    class="btn btn-outline-dark"
+                    onclick="setCountries('oceania')">
+                    Oceania
+                  </button>
+                </div>
+              </div>
+              <div
+                class="localStorage d-flex align-items-center me-2 pt-2 pb-2">
+                <button class="btn btn-primary" onclick="history()">
+                  <i class="fas fa-plus"></i> Local Storage
+                </button>
+              </div>
+              <div>
+                <li class="nav-item dropdown d-flex py-3 pe-2">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Languages
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        ><img
+                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAJ1BMVEX+/v7VKx4AOKUBOaEAOqS8My3aKRnTKyLz/v4KMpgAN68ALJYALJUJu9BsAAABG0lEQVR4nO3QOW4CABAEwQWbw4b/v5d8WwghApKqdKQJegYAAAAAAAAAAAAAAAAAAADgTVe2uT1zf7q8cv/04Mvmn21+2ObIpklpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKa1PyyzR/bnNjmzDYXtjmwaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUg/5bfpP51oZOwAAAABJRU5ErkJggg=="
+                          alt=""
+                          class="rounded-circle"
+                          style="width: 30px; height: 30px" />
+                        Rus</a
+                      >
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"
+                        ><img
+                          src="data:image/png;base64,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"
+                          alt=""
+                          class="rounded-circle"
+                          style="width: 30px; height: 30px" />
+                        Eng</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </div>
+
+              <div class="d-flex align-items-center">
+                <input
+                  class="form-control me-2"
+                  type="text"
+                  placeholder="search"
+                  id="input" />
+                <button
+                  class="btn btn-primary d-flex justify-content-center gap-2"
+                  onclick="postInput()">
+                  + <span>Add</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- body that countries-->
+    <div class="container my-5">
+      <div class="row g-4" id="countries"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="infoModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-center modal-lg">
+        <div class="modal-content">
+          <div class="modal-header text-center" style="background: #f7f7f7">
+            <div
+              class="d-flex align-items-center gap-5 text-center"
+              id="imgAdd"></div>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div
+            class="modal-body"
+            id="myBodyModal"
+            style="background: #f7f7f7"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal PostModal -->
+    <div class="modal fade" id="postModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-center modal-lg">
+        <div class="modal-content">
+          <div class="modal-header text-center" style="background: #f7f7f7">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Post Country
+            </h1>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="addModal"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal">
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="saveChanges()">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-center modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" id="editHeader">
+            <div class="d-flex align-items-center gap-3" id="editHead"></div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="MyModal"></div>
+            <div class="d-flex gap-3">
+              <div class="py-2" style="flex: 1">
+                <label for="username" class="text-primary"
+                  >Enter Name of Country:</label
+                >
+                <input
+                  type="text"
+                  placeholder="Enter Name of Country:"
+                  id="inp1"
+                  class="form-control my-2" />
+                <label for="username" class="text-primary"
+                  >Enter Capital of Country:</label
+                >
+                <input
+                  type="text"
+                  placeholder="Enter Capital of Country:"
+                  id="inp2"
+                  class="form-control my-2" />
+                <label for="username" class="text-primary"
+                  >Enter Population:</label
+                >
+                <input
+                  type="text"
+                  placeholder="Enter Population:"
+                  id="inp3"
+                  class="form-control my-2" />
+                <label for="username" class="text-primary">Enter Region:</label>
+                <input
+                  type="text"
+                  placeholder="Enter Region:"
+                  id="inp4"
+                  class="form-control my-2" />
+              </div>
+
+              <div class="py-2" style="flex: 1">
+                <label for="username" class="text-primary"
+                  >Enter Name of FIFA:</label
+                >
+                <input
+                  type="text"
+                  placeholder="Enter Name of FIFA:"
+                  id="inp5"
+                  class="form-control my-2" />
+                <label for="username" class="text-primary"
+                  >Enter Name of Subregion:</label
+                >
+                <input
+                  type="text"
+                  placeholder="Enter Name of Subregion:"
+                  id="inp6"
+                  class="form-control my-2" />
+                <label for="username" class="text-primary"
+                  >Enter Name of Domain:</label
+                >
+                <input
+                  type="text"
+                  placeholder="Enter Name of Domain:"
+                  id="inp7"
+                  class="form-control my-2" />
+                <label for="username" class="text-primary"
+                  >Enter Borders:</label
+                >
+                <input
+                  type="text"
+                  placeholder="Enter Borders:"
+                  id="inp8"
+                  class="form-control my-2" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal">
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="savePutData()">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal local storage -->
+    <!-- Modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="localStorage" tabindex="-1">
+      <div class="modal-dialog modal-dialog-center modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Local Storage
+            </h1>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-center">#</th>
+                  <th scope="col" class="text-center">Name of Country</th>
+                  <th scope="col" class="text-center">Capital of Country</th>
+                  <th scope="col" class="text-center">Population</th>
+                  <th scope="col" class="text-center">Region</th>
+                  <th scope="col" class="text-center">Borders</th>
+                  <th scope="col" class="text-center">FIFA</th>
+                  <th scope="col" class="text-center">File</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- spinner loading -->
+    <!-- <div
+      class="spinner-border text-primary text-center"
+      role="status"
+      id="loading"
+    >
+      <span class="visually-hidden">Loading...</span>
+    </div> -->
+
+    <!-- loading for error  -->
+
+    <!-- loading for error  -->
+
+    <!-- scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+      crossorigin="anonymous"></script>
+    <script src="./assets/js/main.js"></script>
+  </body>
+</html>
